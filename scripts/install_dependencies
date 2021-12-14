@@ -12,9 +12,3 @@ chown -R ec2-user:ec2-user /var/www/phplaravel
 userAdd -G ec2-user apache
 chgrp -R apache storage bootstrap/cache
 chmod -R ug+rwx storage bootstrap/cache
-
-php /var/www/laravel/artisan clear-compiled
-php /var/www/laravel/artisan optimize
-php /var/www/laravel/artisan view:clear
-php /var/www/laravel/artisan cache:clear
-composer install -d /var/www/phplaravel
