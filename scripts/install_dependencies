@@ -12,3 +12,4 @@ chown -R ec2-user:ec2-user /var/www/phplaravel
 userAdd -G ec2-user apache
 chgrp -R apache storage bootstrap/cache
 chmod -R ug+rwx storage bootstrap/cache
+php artisan composer install
