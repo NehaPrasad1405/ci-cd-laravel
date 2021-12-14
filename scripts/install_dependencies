@@ -12,30 +12,37 @@ userAdd -G ec2-user apache
 chgrp -R apache storage bootstrap/cache
 chmod -R ug+rwx storage bootstrap/cache
 
+# Create cache and chmod folders
+mkdir -p /var/www/phplaravel/bootstrap/cache
+mkdir -p /var/www/phplaravel/storage/framework/sessions
+mkdir -p /var/www/phplaravel/storage/framework/views
+mkdir -p /var/www/phplaravel/storage/framework/cache
+mkdir -p /var/www/phplaravel/public/files/
+
 # Install dependencies
 export COMPOSER_ALLOW_SUPERUSER=1
-composer install -d /var/www/html/
+composer install -d /var/www/phplaravel/
 
 # Copy configuration from /var/www/.env, see README.MD for more information
-cp /var/www/.env /var/www/html/.env
+cp /var/www/.env /var/www/phplaravel/.env
 
 # Migrate all tables
-php /var/www/html/artisan migrate
+php /var/www/phplaravel/artisan migrate
 
 # Clear any previous cached views
-php /var/www/html/artisan config:clear
-php /var/www/html/artisan cache:clear
-php /var/www/html/artisan view:clear
+php /var/www/phplaravel/artisan config:clear
+php /var/www/phplaravel/artisan cache:clear
+php /var/www/phplaravel/artisan view:clear
 
 # Optimize the application
-php /var/www/html/artisan config:cache
-php /var/www/html/artisan optimize
-#php /var/www/html/artisan route:cache
+php /var/www/phplaravel/artisan config:cache
+php /var/www/phplaravel/artisan optimize
+#php /var/www/phplaravel/artisan route:cache
 
 # Change rights
-chmod 777 -R /var/www/html/bootstrap/cache
-chmod 777 -R /var/www/html/storage
-chmod 777 -R /var/www/html/public/files/
+chmod 777 -R /var/www/phplaravel/bootstrap/cache
+chmod 777 -R /var/www/phplaravel/storage
+chmod 777 -R /var/www/phplaravel/public/files/
 
 # Bring up application
-php /var/www/html/artisan up
+php /var/www/phplaravel/artisan up
