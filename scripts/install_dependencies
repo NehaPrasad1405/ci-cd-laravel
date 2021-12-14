@@ -7,9 +7,35 @@ php composer.phar install
 mv composer.phar /usr/local/bin/composer
 sed -i "s|AllowOverride None|AllowOverride All|g"  /etc/httpd/conf/httpd.conf
 sed -i "s|/var/www/html|/var/www/phplaravel/public|g"  /etc/httpd/conf/httpd.conf
-cp .env.example .env
 chown -R ec2-user:ec2-user /var/www/phplaravel
 userAdd -G ec2-user apache
 chgrp -R apache storage bootstrap/cache
 chmod -R ug+rwx storage bootstrap/cache
-composer install -d /var/www/phplaravel
+
+# Install dependencies
+export COMPOSER_ALLOW_SUPERUSER=1
+composer install -d /var/www/html/
+
+# Copy configuration from /var/www/.env, see README.MD for more information
+cp /var/www/.env /var/www/html/.env
+
+# Migrate all tables
+php /var/www/html/artisan migrate
+
+# Clear any previous cached views
+php /var/www/html/artisan config:clear
+php /var/www/html/artisan cache:clear
+php /var/www/html/artisan view:clear
+
+# Optimize the application
+php /var/www/html/artisan config:cache
+php /var/www/html/artisan optimize
+#php /var/www/html/artisan route:cache
+
+# Change rights
+chmod 777 -R /var/www/html/bootstrap/cache
+chmod 777 -R /var/www/html/storage
+chmod 777 -R /var/www/html/public/files/
+
+# Bring up application
+php /var/www/html/artisan up
