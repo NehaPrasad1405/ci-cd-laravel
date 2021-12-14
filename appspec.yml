@@ -1,5 +1,5 @@
 version: 0.0
 os: linux
 files:
-  - source: /resources/views/welcome.blade.php
-    destination: /var/www/html/resources/views/
+  - source: /
+    destination: /var/www/html/
