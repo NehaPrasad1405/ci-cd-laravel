@@ -1,7 +1,8 @@
 #!/bin/bash
 cd /var/www/phplaravel
 yum -y update
-yum update -y php74 php74-cli php74-fpm php74-mysql php74-xml php74-curl php74-opcache php74-pdo php74-gd php74-pecl-apcu php74-mbstring php74-imap php74-pecl-redis php74-mcrypt php74-mysqlnd mod24_ssl
+yum remove "php*" -y
+yum install php74 php74-cli php74-fpm php74-mysql php74-xml php74-curl php74-opcache php74-pdo php74-gd php74-pecl-apcu php74-mbstring php74-imap php74-pecl-redis php74-mcrypt php74-mysqlnd mod24_ssl
 curl -s https://getcomposer.org/installer | php
 php composer.phar install
 mv composer.phar /usr/local/bin/composer
