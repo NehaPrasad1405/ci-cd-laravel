@@ -31,8 +31,6 @@ files:
     destination: /var/www/phplaravel/
   - source: /composer.lock
     destination: /var/www/phplaravel/
-  - source: /index.php
-    destination: /var/www/phplaravel/
   - source: /package.json
     destination: /var/www/phplaravel/
   - source: /phpunit.xml
