@@ -1,7 +1,11 @@
 #!/bin/bash
 cd /var/www/phplaravel
 yum -y update
-yum install -y httpd24 php74 php74-mbstring php74-mysql php74-pdo php74-mcrypt php74-devel
+yum install php73.x86_64 ea-php73-php-intl.x86_64
+
+yum install php73.x86_64 ea-php73-php-soap.x86_64
+
+yum install php73.x86_64 ea-php73-php-zip.x86_64
 curl -s https://getcomposer.org/installer | php
 php composer.phar install
 mv composer.phar /usr/local/bin/composer
