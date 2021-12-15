@@ -5,10 +5,8 @@ yum install php73.x86_64 ea-php73-php-intl.x86_64
 
 yum install php73.x86_64 ea-php73-php-soap.x86_64
 
-yum install php73.x86_64 ea-php73-php-zip.x86_64
 curl -s https://getcomposer.org/installer | php
-php composer.phar install
-mv composer.phar /usr/local/bin/composer
+
 sed -i "s|AllowOverride None|AllowOverride All|g"  /etc/httpd/conf/httpd.conf
 sed -i "s|/var/www/html|/var/www/phplaravel/public|g"  /etc/httpd/conf/httpd.conf
 chown -R ec2-user:ec2-user /var/www/phplaravel
@@ -28,7 +26,7 @@ export COMPOSER_ALLOW_SUPERUSER=1
 composer install -d /var/www/phplaravel/
 
 # Copy configuration from /var/www/.env, see README.MD for more information
-cp /var/www/.env /var/www/phplaravel/.env
+cp /var/www/phplaravel/.env.example /var/www/phplaravel/.env
 
 # Migrate all tables
 php /var/www/phplaravel/artisan migrate
